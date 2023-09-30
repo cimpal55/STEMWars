@@ -1,0 +1,18 @@
+﻿@page "/"
+
+<PageTitle>Shop Website</PageTitle>
+
+<HomeButton />
+<UserButton />
+
+@code {
+    [Parameter]
+    public string categoryUrl { get; set; } = null;
+
+    [Parameter]
+    public string searchString { get; set; } = null;
+
+    [Parameter]
+    public int page { get; set; } = 1;
+
+}
