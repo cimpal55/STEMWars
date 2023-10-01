@@ -1,11 +1,12 @@
 ﻿@page "/register"
 @inject IAuthService _authService
+@inject NavigationManager _navigationManager
 
 <PageTitle>Register</PageTitle>
 
-<h3>Register</h3>
+<h3 style ="padding: 20px;">Register</h3>
 
-<EditForm Model="user" OnValidSubmit="HandleRegistration">
+<EditForm Model="user" OnValidSubmit="HandleRegistration" style="padding-left: 20px;">
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label for="email">Email</label>
@@ -26,6 +27,9 @@
     <div class="@messageCssClass">
         <span>@message</span>
     </div>
+    <div class="mb-3" style="padding-top: 20px">
+        <a href="" @onclick="@(()=>_navigationManager.NavigateTo(returnUrl))">Log in</a>
+    </div>
 </EditForm>
 
 @code {
@@ -33,13 +37,26 @@
 
     string message = string.Empty;
     string messageCssClass = string.Empty;
+    string returnUrl = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        var uri = _navigationManager.ToAbsoluteUri(_navigationManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var url))
+        {
+            returnUrl = url;
+        }
+    }
 
     async Task HandleRegistration()
     {
         var result = await _authService.Register(user);
         message = result.Message;
         if (result.Success)
+        {
+            message = result.Message;
             messageCssClass = "text-success";
+        }
         else
             messageCssClass = "text-danger";
     }

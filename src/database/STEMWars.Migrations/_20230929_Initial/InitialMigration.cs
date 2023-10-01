@@ -11,8 +11,8 @@ namespace STEMWars.Migrations
             new ISubMigration[]
             {
                 new CountriesMigration(),
-                new AddressesMigration(),
                 new UsersMigration(),
+                new AddressesMigration(),
                 new RoomsMigration(),
                 new TopicsMigration(),
                 new QuestionsMigration(),

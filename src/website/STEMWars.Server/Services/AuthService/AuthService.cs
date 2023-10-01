@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using LinqToDB;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -32,8 +33,7 @@ namespace STEMWars.Server.Services.AuthService
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {
             var response = new ServiceResponse<string>();
-            var user = await _conn.Users
-                .FirstOrDefaultAsync(x => x.Email.ToLower().Equals(email.ToLower()));
+            var user = await _conn.Users.FirstOrDefaultAsync(x => x.Email.ToLower().Equals(email.ToLower()));
             if (user == null)
             {
                 response.Success = false;

@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/"
 @inject IAuthService _authService
 @inject ILocalStorageService _localStorage
 @inject NavigationManager _navigationManager
@@ -6,9 +6,10 @@
 
 <PageTitle>Login</PageTitle>
 
-<h3>Login</h3>
+<h3 style="padding: 20px;">Login</h3>
 
-<EditForm Model="user" OnValidSubmit="HandleLogin">
+
+<EditForm Model="user" OnValidSubmit="HandleLogin" style="padding-left: 20px;">
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label for="email">Email</label>
@@ -21,7 +22,11 @@
         <ValidationMessage For="@(() => user.Password)" />
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
+    <div class="mb-3" style="padding-top: 20px;">
+        <a href="/register">Sign Up</a>
+    </div>
 </EditForm>
+
 <div class="text-danger">
     <span>@errorMessage</span>
 </div>

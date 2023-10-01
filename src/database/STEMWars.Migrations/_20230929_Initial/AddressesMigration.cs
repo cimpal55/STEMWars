@@ -13,7 +13,7 @@ namespace STEMWars.Migrations._20230929_Initial
         {
             migration.Create.Table(TableName)
                 .WithColumn(Address.Id).AsInt32().NotNullable().PrimaryKey().Identity()
-                .WithColumn(Address.UserId).AsInt32().Nullable()
+                .WithColumn(Address.UserId).AsInt32().Nullable().ForeignKey(Tables.Users, User.Id)
                 .WithColumn(Address.FirstName).AsString(150).Nullable()
                 .WithColumn(Address.LastName).AsString(150).Nullable()
                 .WithColumn(Address.Street).AsString(250).Nullable()

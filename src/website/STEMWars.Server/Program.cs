@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using STEMWars.Server.Utils.ServiceRegistration;
 using System.Text;
 using LinqToDB.AspNet.Logging;
+using System.Reflection.PortableExecutable;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,9 +23,10 @@ builder.Services.AddLinqToDBContext<AppDataConnection>((provider, options) =>
         .UseSqlServer(connectionString)
         .UseDefaultLogging(provider);
 });
-builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
 builder.Services.AddSTEMWarsServices();
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+builder.WebHost.UseStaticWebAssets();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,6 +41,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false
         };
     });
+
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
@@ -57,14 +60,31 @@ else
     app.UseHsts();
 }
 
+app.UseSwagger();
+
+app.UseHttpsRedirection();
+app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+
+    //ZS new line added
+    endpoints.MapDefaultControllerRoute();
+
+    //Original code
+    endpoints.MapControllers();
+    endpoints.MapFallbackToFile("index.html");
+
+});
 
 app.MapRazorPages();
 app.MapControllers();
 
 app.Run();
+

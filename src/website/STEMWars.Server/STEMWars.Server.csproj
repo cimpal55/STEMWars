@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\STEMWars.Client\STEMWars.Client.csproj" />
     <ProjectReference Include="..\STEMWars.Shared\STEMWars.Shared.csproj" />
   </ItemGroup>
 

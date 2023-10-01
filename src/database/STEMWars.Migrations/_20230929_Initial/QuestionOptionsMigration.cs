@@ -11,7 +11,7 @@ namespace STEMWars.Migrations._20230929_Initial
         public void Up(Migration migration)
         {
             migration.Create.Table(TableName)
-                .WithColumn(QuestionOptions.QuestionId).AsInt32().NotNullable().PrimaryKey().Identity()
+                .WithColumn(QuestionOptions.QuestionId).AsInt32().NotNullable().ForeignKey(Tables.Questions, Question.Id)
                 .WithColumn(QuestionOptions.Option).AsString(250).Nullable()
                 .WithColumn(QuestionOptions.IsAnswer).AsBoolean().Nullable();
         }

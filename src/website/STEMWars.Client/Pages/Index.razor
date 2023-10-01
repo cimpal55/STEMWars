@@ -1,18 +1,17 @@
-﻿@page "/"
+﻿@inject IJSRuntime _js
 
-<PageTitle>Shop Website</PageTitle>
+<PageTitle>STEMWars</PageTitle>
 
-<HomeButton />
 <UserButton />
 
 @code {
-    [Parameter]
-    public string categoryUrl { get; set; } = null;
+	[Parameter]
+	public string categoryUrl { get; set; } = null;
 
-    [Parameter]
-    public string searchString { get; set; } = null;
+	[Parameter]
+	public string searchString { get; set; } = null;
 
-    [Parameter]
-    public int page { get; set; } = 1;
+	[Parameter]
+	public int page { get; set; } = 1;
 
 }
